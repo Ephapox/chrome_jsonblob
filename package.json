@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "lodash": "^4.17.2"
+  },
+  "scripts": {
+    "package": "zip -r caniuse.zip ./*"
+  }
+}

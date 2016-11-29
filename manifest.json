@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "jsonblob",
+  "version": "0.0.1",
+  "description": "Create JSON responses using https://jsonblob.com",
+  "icons": {
+  },
+  "browser_action": {
+    "default_icon": {
+    },
+    "default_popup": "menu/menu.html",
+    "default_title": "jsonblob"
+  },
+  "background": {
+    "scripts": ["event-page.js"]
+  },
+  "permissions": [
+    "webRequest",
+    "storage",
+    "*://jsonblob.com/"
+  ]
+}
