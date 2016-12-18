@@ -1,0 +1,28 @@
+.jsonblobMenuContainer {
+  font-family: sans-serif;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 400px;
+  z-index: 100000000000000;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.jsonblobMenu {
+  height: 100%;
+}
+
+.jsonblobMenu__headerText,
+.jsonblobMenu__blobDisplayText {
+  display: block;
+  text-align: center;
+  margin: 5px 0;
+}
+
+#jsonblobMenu__jsonEditor {
+  height: 50%;
+  width: 90%;
+  margin: 0 auto;
+}

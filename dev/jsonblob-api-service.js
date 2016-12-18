@@ -11,7 +11,11 @@ const api = {
   }
 };
 
-const config = {
+const apiService = {
+  getBlob: getBlob,
+  createBlob: createBlob,
+  updateBlob: updateBlob,
+  removeBlob: removeBlob,
   setProtocol: function(protocol) {
     if(api.protocol.hasOwnProperty(protocol)) {
       API_DOMAIN = api.protocol[protocol];
@@ -22,14 +26,6 @@ const config = {
   getProtocol: function() {
     return API_DOMAIN;
   }
-};
-
-const apiService = {
-  config: config,
-  getBlob: getBlob,
-  createBlob: createBlob,
-  updateBlob: updateBlob,
-  removeBlob: removeBlob
 };
 
 let API_DOMAIN = api.protocol.https;
@@ -81,6 +77,7 @@ function createBlob(obj) {
       })
       .catch(err => {
         console.log(err);
+        reject(err);
       });
   });
 };

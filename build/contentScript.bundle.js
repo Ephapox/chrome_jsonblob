@@ -44,7 +44,16 @@
 /* 0 */
 /***/ function(module, exports) {
 
-	
+	function renderMenu() {
+
+	}
+
+	function contentMessageHandler(message, sender, sendResponse) {
+	  
+	}
+
+	chrome.runtime.onMessage.addListener(contentMessageHandler);
+
 
 /***/ }
 /******/ ]);

@@ -7,16 +7,23 @@
   },
   "browser_action": {
     "default_icon": {
-    },
-    "default_popup": "menu/menu.html",
-    "default_title": "jsonblob"
+    }
   },
   "background": {
-    "scripts": ["event-page.js"]
+    "scripts": ["/build/event-page.bundle.js"],
+    "persistent": false
   },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*/*"
+      ],
+      "js": ["/build/content-script.bundle.js"]
+    }
+  ],
   "permissions": [
-    "webRequest",
     "storage",
-    "*://jsonblob.com/"
+    "*://jsonblob.com/",
+    "*://*/*"
   ]
 }
