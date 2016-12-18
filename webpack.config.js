@@ -1,7 +1,7 @@
 module.exports = {
   entry: {
-    "event-page": "./dev/event-page",
-    "content-script": "./dev/content-script"
+    "event-page": "./src/event-page",
+    "content-script": "./src/content-script"
   },
   output: {
     path: __dirname + "/build",
