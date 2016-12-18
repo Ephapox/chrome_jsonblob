@@ -9,6 +9,6 @@
     "url-loader": "^0.5.7"
   },
   "scripts": {
-    "package": "zip -r caniuse.zip ./*"
+    "start": "webpack --watch"
   }
 }
