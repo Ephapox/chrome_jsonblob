@@ -13,11 +13,9 @@ let _blobStorage = {
 function getAllBlobs() {
   return new Promise((resolve, reject) => {
     chrome.storage.sync.get("jsonblobs", blob => {
-      _blobStorage = {
-        'jsonblobs': _.get(blob, 'jsonblobs', {
-            'jsonblobs': []
-        })
-      };
+      _blobStorage = _.get(blob, 'jsonblobs', {
+        'jsonblobs': []
+      })
       
       return resolve(_blobStorage);
     });
@@ -25,16 +23,6 @@ function getAllBlobs() {
 }
 
 function saveBlob(blob) {
-  let blobExists = _.find(_blobStorage.jsonblobs, {id: blob.id});
-  let newBlob = {
-    'name': blob.name,
-    'id': blob.id
-  };
-  if(blobExists) {
-    blobExists = newBlob;
-  } else {
-    _blobStorage.jsonblobs.push(newBlob);
-  }
   return new Promise((resolve, reject) => {
     chrome.storage.sync.set(
       _blobStorage,

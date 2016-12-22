@@ -66,8 +66,7 @@ function createBlob(obj) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: obj,
-      redirect: 'follow'
+      body: obj
     };
     fetch(API_DOMAIN + api.apiEndpoints.create, fetchConfig)
       .then(__status__)

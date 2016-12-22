@@ -14,14 +14,37 @@
   height: 100%;
 }
 
+.jsonblobMenu__blobDisplay {
+  margin: 0 auto;
+  width: 90%;
+}
+
 .jsonblobMenu__headerText,
-.jsonblobMenu__blobDisplayText {
-  display: block;
-  text-align: center;
+.jsonblobMenu__blobDisplayText,
+.jsonblobMenu__addBlob {
   margin: 5px 0;
 }
 
-#jsonblobMenu__jsonEditor {
+.jsonblobMenu__addBlob {
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.jsonblobMenu__addBlob:hover {
+  color: rgba(200,200,200,0.7);
+}
+
+.jsonblobMenu__addBlob,
+.jsonblobMenu__blobDisplayText {
+  display: inline-block;
+}
+
+.jsonblobMenu__headerText {
+  display: block;
+  text-align: center;
+}
+
+.jsonblobMenu__jsonEditor {
   height: 50%;
   width: 90%;
   margin: 0 auto;
