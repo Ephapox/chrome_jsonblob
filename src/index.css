@@ -1,5 +1,5 @@
 .jsonblobMenuContainer {
-  font-family: sans-serif;
+  font-family: sans-serif !important;
   position: fixed;
   top: 0;
   right: 0;
@@ -30,6 +30,10 @@
   cursor: pointer;
 }
 
+.jsonblobMenu__addBlobText {
+  font-size: 12px;
+}
+
 .jsonblobMenu__addBlob:hover {
   color: rgba(200,200,200,0.7);
 }
@@ -48,4 +52,16 @@
   height: 50%;
   width: 90%;
   margin: 0 auto;
+}
+
+.jsonblobMenu__item {
+  border: 1px solid black;
+  padding: 5px;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.jsonblobMenu__blobs {
+  height: 140px;
+  overflow: scroll;
 }

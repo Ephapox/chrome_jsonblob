@@ -23,7 +23,7 @@
   ],
   "permissions": [
     "storage",
-    "*://jsonblob.com/",
+    "*://jsonblob.com/*",
     "*://*/*"
   ]
 }

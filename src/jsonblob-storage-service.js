@@ -6,23 +6,20 @@ const jsonblobStorageService = {
   editBlob: editBlob
 };
 
-let _blobStorage = {
-  jsonblobs: []
-};
+let _blobStorage = {};
 
 function getAllBlobs() {
   return new Promise((resolve, reject) => {
     chrome.storage.sync.get("jsonblobs", blob => {
-      _blobStorage = _.get(blob, 'jsonblobs', {
-        'jsonblobs': []
-      })
-      
-      return resolve(_blobStorage);
+      console.log(blob);
+      _blobStorage = blob;
+      return resolve(blob);
     });
   });
 }
 
 function saveBlob(blob) {
+  _blobStorage.jsonblobs.push(blob);
   return new Promise((resolve, reject) => {
     chrome.storage.sync.set(
       _blobStorage,

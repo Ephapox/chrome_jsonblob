@@ -16,18 +16,53 @@ const ON_MESSAGE = {
 
 const JSONEditorConfig = {
   mode: 'code',
-  search: false
+  search: false,
 };
+
+const errorHandlerService = function(e) {
+  console.log(e);
+}
 
 const menuClass = "jsonblobMenuContainer";
 const JSONEditorClass = "jsonblobMenu__jsonEditor";
 const savedBlobClass = "jsonblobMenu__blobs";
+const addBlobClass = "jsonblobMenu__addBlob";
+
+const EVENTS = [
+  {
+    event: "click",
+    className: addBlobClass,
+    data: [],
+    handler: function onAddBlobClick($appMenu, jsonEditor) {
+      try {
+        let jsonEditorData = jsonEditor.get();
+        
+        jsonblobApiService.createBlob(jsonEditorData)
+          .then(res => {
+            let blobId = res.headers.get('x-jsonblob');
+            jsonblobStorageService.saveBlob({
+              name: new Date(Date.now()).toString(),
+              id: blobId
+            });
+          })
+          .then(jsonblobStorageService.getAllBlobs)
+          .then(blobs => {
+            uiService.updateSavedBlobs(uiService.$(savedBlobClass), blobs);
+          })
+          .catch(errorHandlerService);
+      } catch(e) {
+        console.log("invalid json!");
+      }
+    }
+  }
+];
 
 let $body = document.querySelector("body");
 appendMenu($body, menuTemplate, menuClass)
   .then($appMenu => {
     let $savedBlobs = uiService.$(savedBlobClass);
-    initializeJSONEditor(JSONEditorConfig, $appMenu);
+    let jsonEditor = initializeJSONEditor(JSONEditorConfig, $appMenu);
+    initializeDomEventHandlers($appMenu, jsonEditor, EVENTS);
     jsonblobStorageService.getAllBlobs()
       .then(uiService.updateSavedBlobs.bind(this, $savedBlobs))
   });
@@ -56,6 +91,19 @@ function appendMenu(parentElement, menuTemplate, menuClassName) {
 function initializeJSONEditor(config, $appMenu) {
   let $jsonEditor = uiService.$(JSONEditorClass);
   jsonEditor = new JSONEditor($jsonEditor, config);
+  return jsonEditor;
+}
+
+function initializeDomEventHandlers($appMenu, jsonEditor, EVENTS) {
+  let handlerData = [$appMenu, jsonEditor];
+  EVENTS.forEach(event => {
+    let eventData = handlerData.concat(event.data);
+    $appMenu
+      .querySelector(`.${event.className}`)
+      .addEventListener(event.event, e => {
+        event.handler.apply(this, eventData);
+      });
+  });
 }
 
 function toggleMenu($menu) {

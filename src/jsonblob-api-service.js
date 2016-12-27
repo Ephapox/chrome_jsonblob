@@ -4,10 +4,10 @@ const api = {
     https: "https://jsonblob.com"
   },
   apiEndpoints: {
-    create: "/api/jsonblob",
-    get: "/api/jsonblob/%%blobId%%",
-    update: "/api/jsonblob/%%blobId%%",
-    remove: "/api/jsonblob/%%blobId%%"
+    create: "/api/jsonBlob",
+    get: "/api/jsonBlob/%%blobId%%",
+    update: "/api/jsonBlob/%%blobId%%",
+    remove: "/api/jsonBlob/%%blobId%%"
   }
 };
 
@@ -66,16 +66,14 @@ function createBlob(obj) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: obj
+      body: JSON.stringify(obj)
     };
     fetch(API_DOMAIN + api.apiEndpoints.create, fetchConfig)
       .then(__status__)
-      .then(__json__)
-      .then(json => {
-        resolve(json);
+      .then(res => {
+        resolve(res);
       })
       .catch(err => {
-        console.log(err);
         reject(err);
       });
   });
