@@ -5,34 +5,30 @@ const uiService = {
   $: $
 };
 
-const templates = {
-  blob: _.template(`
-  <div class='jsonblobMenu__item'>
-    <p><%= id %><p>
-    <div>
-      <span data-blob-id=<%= id %>>View</span>
-      <span data-blob-id=<%= id %>>Edit</span>
-      <span data-blob-id=<%= id %>>Remove</span>
-    </div>
-  </div>
-  `)
-};
+
 
 function $(className) {
   return document.querySelector(`.${className}`);
 }
 
-function updateSavedBlobs($wrapper, blobs) {
-  console.log($wrapper, blobs);
+function updateSavedBlobs($wrapper, blobs, template, EVENTS, jsonEditor) {
   if(blobs.jsonblobs.length) {
     let blobHTML = '';
     blobs.jsonblobs.forEach(blob => {
-      blobHTML += templates.blob({
+      blobHTML += template({
         name: blob.name.toString(),
         id: blob.id
       });
     });
     $wrapper.innerHTML = blobHTML;
+    EVENTS.forEach(event => {
+      document.querySelectorAll(`.${event.className}`)
+        .forEach(element => {
+          element.addEventListener(event.event, e => {
+            event.handler(e, jsonEditor);
+          });
+        })
+    });
   } else {
     $wrapper.innerHTML = "You have no saved blobs.";
   }

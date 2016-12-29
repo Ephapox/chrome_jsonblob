@@ -47,6 +47,7 @@ function getBlob(blobId) {
   return new Promise((resolve, reject) => {
     fetch(API_DOMAIN + api.apiEndpoints.get.replace("%%blobId%%", blobId))
       .then(__status__)
+      .then(__json__)
       .then(res => {
         resolve(res);
       })
@@ -85,19 +86,27 @@ function updateBlob(id, obj) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: obj,
+      body: JSON.stringify(obj),
       redirect: 'follow'
     };
     fetch(API_DOMAIN + api.apiEndpoints.update.replace('%%blobId%%', id), fetchConfig)
       .then(__status__)
-      .then(res => res.url)
       .then(resolve)
       .catch(err => {
         console.log(err);
       });
   });
 };
-function removeBlob() {};
+function removeBlob(id) {
+  return new Promise((resolve, reject) => {
+    let fetchConfig = {
+      method: "DELETE"
+    };
+    fetch(API_DOMAIN + api.apiEndpoints.remove.replace('%%blobId%%', id), fetchConfig)
+      .then(__status__)
+      .then(resolve)
+  });
+};
 
 module.exports = apiService;
 

@@ -3,7 +3,8 @@ const _ = require('lodash');
 const jsonblobStorageService = {
   getAllBlobs: getAllBlobs,
   saveBlob: saveBlob,
-  editBlob: editBlob
+  editBlob: editBlob,
+  removeBlob: removeBlob
 };
 
 let _blobStorage = {};
@@ -35,6 +36,24 @@ function saveBlob(blob) {
 
 function editBlob(blobId) {
 
+}
+
+function removeBlob(blobId) {
+  _blobStorage.jsonblobs = _blobStorage.jsonblobs.filter(blob => {
+    return blobId !== blob.id;
+  });
+
+  return new Promise((resolve, reject) => {
+    chrome.storage.sync.set(
+      _blobStorage,
+      function() {
+        if(chrome.runtime.lastError) {
+          return reject({type: "chrome storage set error"});
+        }
+        return resolve();
+      }
+    );
+  });
 }
 
 module.exports = jsonblobStorageService;
