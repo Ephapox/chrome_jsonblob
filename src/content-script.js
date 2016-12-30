@@ -91,6 +91,8 @@ const EVENTS = {
               EVENTS.updateBlobs, 
               jsonEditor
             );
+            jsonEditor.setMode("code");
+            jsonEditor.set({});
           });
       }
     } 
