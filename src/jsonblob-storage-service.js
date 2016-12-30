@@ -4,23 +4,24 @@ const jsonblobStorageService = {
   getAllBlobs: getAllBlobs,
   saveBlob: saveBlob,
   editBlob: editBlob,
-  removeBlob: removeBlob
+  removeBlob: removeBlob,
+  clearBlobs
 };
 
 let _blobStorage = {};
 
 function getAllBlobs() {
   return new Promise((resolve, reject) => {
-    chrome.storage.sync.get("jsonblobs", blob => {
-      console.log(blob);
-      _blobStorage = blob;
-      return resolve(blob);
+    chrome.storage.sync.get(null, blobs => {
+      console.log(blobs);
+      _blobStorage = blobs;
+      return resolve(blobs);
     });
   });
 }
 
 function saveBlob(blob) {
-  _blobStorage.jsonblobs.push(blob);
+  _blobStorage[blob.id] = blob;
   return new Promise((resolve, reject) => {
     chrome.storage.sync.set(
       _blobStorage,
@@ -39,13 +40,9 @@ function editBlob(blobId) {
 }
 
 function removeBlob(blobId) {
-  _blobStorage.jsonblobs = _blobStorage.jsonblobs.filter(blob => {
-    return blobId !== blob.id;
-  });
-
   return new Promise((resolve, reject) => {
-    chrome.storage.sync.set(
-      _blobStorage,
+    chrome.storage.sync.remove(
+      blobId,
       function() {
         if(chrome.runtime.lastError) {
           return reject({type: "chrome storage set error"});
@@ -53,6 +50,17 @@ function removeBlob(blobId) {
         return resolve();
       }
     );
+  });
+}
+
+function clearBlobs() {
+  return new Promise((resolve, reject) => {
+    chrome.storage.sync.clear(() => {
+      if(chrome.runtime.lastError) {
+        return reject({type: "chrome storage clear error"});
+      }
+      return resolve();
+    });
   });
 }
 

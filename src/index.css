@@ -20,25 +20,28 @@
 }
 
 .jsonblobMenu__headerText,
-.jsonblobMenu__blobDisplayText,
-.jsonblobMenu__addBlob {
+.jsonblobMenu__blobDisplayText {
   margin: 5px 0;
 }
 
-.jsonblobMenu__addBlob {
+.jsonblobMenu__addBlob,
+.jsonblobMenu__clearBlobs {
   font-size: 16px;
   cursor: pointer;
+  display: inline-block;
+  margin: 5px;
 }
 
-.jsonblobMenu__addBlobText {
+.jsonblobMenu__addBlobText,
+.jsonblobMenu__clearBlobsText {
   font-size: 12px;
 }
 
-.jsonblobMenu__addBlob:hover {
+.jsonblobMenu__addBlob:hover,
+.jsonblobMenu__clearBlobs:hover {
   color: rgba(200,200,200,0.7);
 }
 
-.jsonblobMenu__addBlob,
 .jsonblobMenu__blobDisplayText {
   display: inline-block;
 }

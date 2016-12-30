@@ -27,6 +27,7 @@ const menuClass = "jsonblobMenuContainer";
 const JSONEditorClass = "jsonblobMenu__jsonEditor";
 const savedBlobClass = "jsonblobMenu__blobs";
 const addBlobClass = "jsonblobMenu__addBlob";
+const clearBlobsClass = "jsonblobMenu__clearBlobs";
 
 const templates = {
   blob: _.template(`
@@ -74,7 +75,25 @@ const EVENTS = {
           console.log("invalid json!");
         }
       }
-    }
+    },
+    {
+      event: "click",
+      className: clearBlobsClass,
+      data: [],
+      handler: function onClearBlobsClick($appMenu, jsonEditor) {
+        jsonblobStorageService.clearBlobs()
+          .then(jsonblobStorageService.getAllBlobs)
+          .then(blobs => {
+            uiService.updateSavedBlobs(
+              uiService.$(savedBlobClass), 
+              blobs, 
+              templates.blob, 
+              EVENTS.updateBlobs, 
+              jsonEditor
+            );
+          });
+      }
+    } 
   ],
   updateBlobs: [
     {

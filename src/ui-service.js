@@ -12,9 +12,9 @@ function $(className) {
 }
 
 function updateSavedBlobs($wrapper, blobs, template, EVENTS, jsonEditor) {
-  if(blobs.jsonblobs.length) {
+  if(_.values(blobs).length > 0) {
     let blobHTML = '';
-    blobs.jsonblobs.forEach(blob => {
+    _.forEach(blobs, blob => {
       blobHTML += template({
         name: blob.name.toString(),
         id: blob.id
