@@ -13,7 +13,6 @@ let _blobStorage = {};
 function getAllBlobs() {
   return new Promise((resolve, reject) => {
     chrome.storage.sync.get(null, blobs => {
-      console.log(blobs);
       _blobStorage = blobs;
       return resolve(blobs);
     });

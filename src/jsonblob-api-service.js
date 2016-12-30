@@ -31,7 +31,6 @@ const apiService = {
 let API_DOMAIN = api.protocol.https;
 
 function __json__(res) {
-  console.log(res);
   return res.json();
 };
 
