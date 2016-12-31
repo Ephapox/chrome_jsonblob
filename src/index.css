@@ -1,4 +1,4 @@
-.jsonblobMenuContainer {
+#jsonblobMenuContainer {
   font-family: sans-serif !important;
   position: fixed;
   top: 0;
@@ -8,63 +8,4 @@
   z-index: 100000000000000;
   background-color: white;
   border: 1px solid black;
-}
-
-.jsonblobMenu {
-  height: 100%;
-}
-
-.jsonblobMenu__blobDisplay {
-  margin: 0 auto;
-  width: 90%;
-}
-
-.jsonblobMenu__headerText,
-.jsonblobMenu__blobDisplayText {
-  margin: 5px 0;
-}
-
-.jsonblobMenu__addBlob,
-.jsonblobMenu__clearBlobs {
-  font-size: 16px;
-  cursor: pointer;
-  display: inline-block;
-  margin: 5px;
-}
-
-.jsonblobMenu__addBlobText,
-.jsonblobMenu__clearBlobsText {
-  font-size: 12px;
-}
-
-.jsonblobMenu__addBlob:hover,
-.jsonblobMenu__clearBlobs:hover {
-  color: rgba(200,200,200,0.7);
-}
-
-.jsonblobMenu__blobDisplayText {
-  display: inline-block;
-}
-
-.jsonblobMenu__headerText {
-  display: block;
-  text-align: center;
-}
-
-.jsonblobMenu__jsonEditor {
-  height: 190px;
-  width: 90%;
-  margin: 0 auto;
-}
-
-.jsonblobMenu__item {
-  border: 1px solid black;
-  padding: 5px;
-  font-size: 12px;
-  margin-bottom: 5px;
-}
-
-.jsonblobMenu__blobs {
-  height: 140px;
-  overflow: scroll;
 }

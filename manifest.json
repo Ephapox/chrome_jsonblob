@@ -25,5 +25,8 @@
     "storage",
     "*://jsonblob.com/*",
     "*://*/*"
+  ],
+  "web_accessible_resources": [
+    "build/menu.html"
   ]
 }
