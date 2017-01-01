@@ -4,22 +4,37 @@ const JSONEditor = require('jsoneditor');
 
 let jsoneditorCSS = require('style-loader!css-loader!./jsoneditor.css');
 
-const jsonEditorConfig = {
-  mode: "code",
-  modes: ["code", "view"]
-};
 
 class JsonEditor extends React.Component { 
   constructor(props) {
     super(props);
   }
 
-  init(container, options) {
-    this.jsonEditor = new JSONEditor(container, options);
+  componentDidMount() {
+    this.jsonEditor = new JSONEditor(
+      document.getElementById("jsonEditor"), 
+      {
+        mode: "code",
+        modes: ["code", "view"],
+        onChange: this.onJsonEditorChange.bind(this),
+        onError: this.onJsonEditorError.bind(this)
+      }
+    );
   }
 
-  componentDidMount() {
-    this.init(document.getElementById('jsonEditor'), jsonEditorConfig);
+  onJsonEditorChange() {
+    let jsonData;
+    try {
+      jsonData = this.jsonEditor.get();
+    } catch(e) {
+      jsonData = "invalid";
+    } finally {
+      this.props.onJsonEditorChange(jsonData);
+    }
+  }
+
+  onJsonEditorError(e) {
+    console.debug(e);
   }
 
   componentWillUnmount() {
@@ -27,11 +42,12 @@ class JsonEditor extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.jsonEditor.set(nextProps.blob.jsonblob);
+    this.jsonEditor.set(nextProps.selectedBlob.jsonblob);
     this.jsonEditor.setMode(nextProps.viewMode || "view");
   }
 
   render() {
+
     return (
       <div id='jsonEditor'></div>
     );

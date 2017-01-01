@@ -5,6 +5,7 @@ const _ = require('lodash');
 const Blob = require('./../Blob/Blob.jsx');
 
 const StorageService = require('./../../services/jsonblob-storage-service.js');
+const ApiService = require('./../../services/jsonblob-api-service.js');
 
 class BlobList extends React.Component {
   constructor(props) {
@@ -12,12 +13,19 @@ class BlobList extends React.Component {
 
     this.state = {
       blobList: {},
-      selectedBlob: {}
+      selectedBlob: {} 
     };
   }
 
   componentDidMount() {
     StorageService.getAllBlobs().then(this.updateBlobList.bind(this));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    StorageService.getAllBlobs().then(this.updateBlobList.bind(this));
+    this.setState({
+      selectedBlob: nextProps.selectedBlob,
+    });
   }
 
   updateBlobList(blobs) {
@@ -33,6 +41,13 @@ class BlobList extends React.Component {
     });
   }
 
+  onBlobRemove(blob) {
+    StorageService.removeBlob(blob.id)
+      .then(StorageService.getAllBlobs)
+      .then(this.updateBlobList.bind(this));
+    ApiService.removeBlob(blob.id);
+  }
+
   render() {
     if(_.values(this.state.blobList).length) {
       let blobList = _.map(this.state.blobList, blob => {
@@ -41,12 +56,13 @@ class BlobList extends React.Component {
             key={blob.id} 
             blob={blob} 
             onBlobSelect={this.onBlobSelect.bind(this)}
+            onBlobRemove={this.onBlobRemove.bind(this)}
           />
         );
       });
+
       return (
         <div>
-          Selected {this.state.selectedBlob.id}
           {blobList}
         </div>
       );

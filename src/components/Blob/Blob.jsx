@@ -27,7 +27,7 @@ class Blob extends React.Component {
         <p>{this.props.blob.name}</p> 
         <p onClick={this.onBlobSelect.bind(this, this.props.blob, "view")}>View</p>
         <p onClick={this.onBlobSelect.bind(this, this.props.blob, "code")}>Edit</p>
-        <p>Remove</p>
+        <p onClick={this.props.onBlobRemove.bind(this, this.props.blob)}>Remove</p>
       </div>
     );
   }

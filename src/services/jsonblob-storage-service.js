@@ -28,7 +28,7 @@ function saveBlob(blob) {
         if(chrome.runtime.lastError) {
           return reject({type: "chrome storage set error"});
         }
-        return resolve();
+        return resolve(blob);
       }
     );
   });
