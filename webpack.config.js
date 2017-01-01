@@ -19,10 +19,7 @@ module.exports = {
       template: 'html!src/templates/menu.html',
       chunks: ['app']
     }),
-    new CleanWebpackPlugin(['build']),
-    new webpack.optimize.UglifyJsPlugin({
-      mangle: false
-    })
+    new CleanWebpackPlugin(['build'])
   ],
   module: {
     loaders: [
