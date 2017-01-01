@@ -11,7 +11,8 @@ class BlobList extends React.Component {
     super(props);
 
     this.state = {
-      blobList: {} 
+      blobList: {},
+      selectedBlob: {}
     };
   }
 
@@ -25,13 +26,27 @@ class BlobList extends React.Component {
     });
   }
 
+  onBlobSelect(blob, viewMode) {
+    this.props.onBlobSelect(blob, viewMode);
+    this.setState({
+      selectedBlob: blob
+    });
+  }
+
   render() {
     if(_.values(this.state.blobList).length) {
       let blobList = _.map(this.state.blobList, blob => {
-        return (<Blob key={blob.id} blob={blob} />);
+        return (
+          <Blob 
+            key={blob.id} 
+            blob={blob} 
+            onBlobSelect={this.onBlobSelect.bind(this)}
+          />
+        );
       });
       return (
         <div>
+          Selected {this.state.selectedBlob.id}
           {blobList}
         </div>
       );

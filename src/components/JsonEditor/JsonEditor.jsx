@@ -26,6 +26,11 @@ class JsonEditor extends React.Component {
     this.jsonEditor.destroy();
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.jsonEditor.set(nextProps.blob.jsonblob);
+    this.jsonEditor.setMode(nextProps.viewMode || "view");
+  }
+
   render() {
     return (
       <div id='jsonEditor'></div>
