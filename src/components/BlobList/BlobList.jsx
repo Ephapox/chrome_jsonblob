@@ -1,6 +1,7 @@
 const React = require("react");
 const ReactDOM = require("react-dom");
-const _ = require('lodash');
+const _map = require('lodash/map');
+const _values = require('lodash/values');
 
 const Blob = require('./../Blob/Blob.jsx');
 
@@ -49,8 +50,8 @@ class BlobList extends React.Component {
   }
 
   render() {
-    if(_.values(this.state.blobList).length) {
-      let blobList = _.map(this.state.blobList, blob => {
+    if(_values(this.state.blobList).length) {
+      let blobList = _map(this.state.blobList, blob => {
         return (
           <Blob 
             key={blob.id} 

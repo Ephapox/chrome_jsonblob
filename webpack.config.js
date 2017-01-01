@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
@@ -18,7 +19,10 @@ module.exports = {
       template: 'html!src/templates/menu.html',
       chunks: ['app']
     }),
-    new CleanWebpackPlugin(['build'])
+    new CleanWebpackPlugin(['build']),
+    new webpack.optimize.UglifyJsPlugin({
+      mangle: false
+    })
   ],
   module: {
     loaders: [
