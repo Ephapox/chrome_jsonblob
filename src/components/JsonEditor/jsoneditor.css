@@ -1,4 +1,7 @@
 /* reset styling (prevent conflicts with bootstrap, materialize.css, etc.) */
+#jsonEditor {
+  height: 200px;
+}
 
 div.jsoneditor input {
   height: auto;

@@ -1,0 +1,12 @@
+.jsonblob__blob:first-child {
+  margin-top: 10px;
+  border-top: 1px solid rgba(200,200,200,0.8);
+}
+
+.jsonblob__blob {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(200,200,200,0.8);
+}
+
+.jsonblob__blob:last-child {
+}

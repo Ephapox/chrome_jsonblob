@@ -12,6 +12,10 @@ class Blob extends React.Component {
     this.onBlobSelect(this.props.blob);
   }
 
+  formatBlobUrl(id) {
+    return `https://jsonblob.com/${id}`;
+  }
+
   onBlobSelect(blob, view) {
     ApiService.getBlob(blob.id)
       .then(jsonblob => {
@@ -23,11 +27,30 @@ class Blob extends React.Component {
   render() {
     return(
       <div className="jsonblob__blob">
-        <p>{this.props.blob.id}</p> 
         <p>{this.props.blob.name}</p> 
-        <p onClick={this.onBlobSelect.bind(this, this.props.blob, "view")}>View</p>
-        <p onClick={this.onBlobSelect.bind(this, this.props.blob, "code")}>Edit</p>
-        <p onClick={this.props.onBlobRemove.bind(this, this.props.blob)}>Remove</p>
+        <p>
+          <a
+              href={this.formatBlobUrl(this.props.blob.id)}>
+            {this.props.blob.id}
+          </a> 
+        </p>
+        <div className='pure-g'>
+          <button 
+              className='pure-button button-secondary pure-u-1-3'
+              onClick={this.onBlobSelect.bind(this, this.props.blob, "view")}>
+            View
+          </button>
+          <button 
+              className='pure-button pure-u-1-3'
+              onClick={this.onBlobSelect.bind(this, this.props.blob, "code")}>
+            Edit
+          </button>
+          <button 
+              className='pure-button button-error pure-u-1-3'
+              onClick={this.props.onBlobRemove.bind(this, this.props.blob)}>
+            Remove
+          </button>
+        </div>
       </div>
     );
   }

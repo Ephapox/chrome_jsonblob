@@ -1,3 +1,9 @@
+require('style!css!./../libs/buttons.css');
+require('style!css!./../libs/grids.css');
+
+require('style!css!./Blob/Blob.css');
+require('style!css!./app.css');
+  
 const React = require("react");
 const ReactDOM = require("react-dom");
 
@@ -68,10 +74,17 @@ class App extends React.Component {
           selectedBlob={this.state.selectedBlob} 
           onJsonEditorChange={this.onJsonEditorChange.bind(this)}
         />
-        <p>Selected {this.state.selectedBlob.id}</p>
-        <div>
-          <button onClick={this.newBlob.bind(this)}>New Blob</button>
+        <p>
+          Selected <span className='selectedBlobId'>{this.state.selectedBlob.id}</span>
+        </p>
+        <div className='pure-g'>
           <button 
+              className='pure-button button-success pure-u-1-3'
+              onClick={this.newBlob.bind(this)}>
+            New Blob
+          </button>
+          <button 
+              className='pure-button button-secondary pure-u-1-3'
               onClick={this.saveBlob.bind(this)}>
             Save Blob
           </button>
