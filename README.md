@@ -15,10 +15,14 @@ webpack
 
 or
 
-npm run build
+npm run build // uglify + zip the build directory.
 
 or
 
 npm run start // enables watch.
 
 ```
+
+The build directory will move the manfiest.production.json file to build/manifest.json
+
+The paths in the build file, content scripts, and background scripts should be relative to the build directory paths.

@@ -7,7 +7,7 @@ const ON_MESSAGE = {
 };
 
 const MENU_ID = "jsonblobMenuContainer";
-const MENU_URL = `chrome-extension://${chrome.runtime.id}/build/menu.html`;
+const MENU_URL = `chrome-extension://${chrome.runtime.id}/menu.html`;
 
 function browserActionClick(message) {
   let $menu = document.getElementById(MENU_ID);

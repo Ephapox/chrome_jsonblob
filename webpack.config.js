@@ -1,13 +1,14 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 module.exports = {
   entry: {
     "event-page": "./src/event-page",
     "content-script": "./src/content-script",
-    "app": "./src/components/app.jsx"
+    "app": "./src/components/app.jsx",
   },
   output: {
     path: __dirname + "/build",
@@ -19,7 +20,13 @@ module.exports = {
       template: 'html!src/templates/menu.html',
       chunks: ['app']
     }),
-    new CleanWebpackPlugin(['build'])
+    new CleanWebpackPlugin(['build']),
+    new CopyWebpackPlugin([
+      {
+        from: "./manifest.production.json",
+        to: "./manifest.json"
+      }
+    ])
   ],
   module: {
     loaders: [
