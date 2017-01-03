@@ -1,5 +1,7 @@
 # Chrome JSONblob
 
+[Download here](https://chrome.google.com/webstore/detail/jsonblob/cljhoojcdfijamkmaejeplcebkpindob)
+
 Chrome Extension for the wonderfully helpful [JSONblob](https://jsonblob.com/).
 
 Technology
