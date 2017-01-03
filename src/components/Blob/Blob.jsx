@@ -11,6 +11,7 @@ class Blob extends React.Component {
   
   componentDidMount(nextProps, nextState) {
     this.onBlobSelect(this.props.blob);
+    new Clipboard(".button__copyBlobId");
   }
 
   formatBlobUrl(id) {
@@ -24,10 +25,6 @@ class Blob extends React.Component {
         blob.method = "update";
         this.props.onBlobSelect(blob, view);
       });
-  }
-
-  copyBlobId(blob) {
-    new Clipboard(".button__copyBlobId");
   }
 
   render() {
@@ -53,7 +50,7 @@ class Blob extends React.Component {
           </button>
           <button 
               className='button__copyBlobId pure-button button-warning pure-u-1-4'
-              onClick={this.copyBlobId.bind(this, this.props.blob)}>
+              data-clipboard-text={this.props.blob.id}>
             Copy ID 
           </button>
           <button 
