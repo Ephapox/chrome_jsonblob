@@ -8,6 +8,9 @@ let jsoneditorCSS = require('style-loader!css-loader!./jsoneditor.css');
 class JsonEditor extends React.Component { 
   constructor(props) {
     super(props);
+
+    this.viewMode = "";
+    this.selectedBlobId;
   }
 
   componentDidMount() {
@@ -23,14 +26,17 @@ class JsonEditor extends React.Component {
   }
 
   onJsonEditorChange() {
-    let jsonData;
+    let jsonData = {
+      json: {},
+      error: false
+    };
     try {
-      jsonData = this.jsonEditor.get();
+      jsonData.json = this.jsonEditor.get();
+      jsonData.error = false;
     } catch(e) {
-      jsonData = "invalid";
-    } finally {
-      this.props.onJsonEditorChange(jsonData);
-    }
+      jsonData.error = true;
+    } 
+    this.props.onJsonEditorChange(jsonData);
   }
 
   onJsonEditorError(e) {
@@ -42,8 +48,14 @@ class JsonEditor extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.jsonEditor.set(nextProps.selectedBlob.jsonblob);
-    this.jsonEditor.setMode(nextProps.viewMode || "view");
+    if(nextProps.selectedBlob.id !== this.selectedBlobId) {
+      this.selectedBlobId = nextProps.selectedBlob.id;
+      this.jsonEditor.set(nextProps.selectedBlob.jsonblob);
+    }
+    if(this.viewMode !== nextProps.viewMode) {
+      this.viewMode = nextProps.viewMode;
+      this.jsonEditor.setMode(nextProps.viewMode || "view");
+    }
   }
 
   render() {

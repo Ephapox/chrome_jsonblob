@@ -78,7 +78,7 @@ function createBlob(obj) {
       });
   });
 };
-function updateBlob(id, obj) {
+function updateBlob(obj, id) {
   return new Promise((resolve, reject) => {
     let fetchConfig = {
       method: 'PUT',

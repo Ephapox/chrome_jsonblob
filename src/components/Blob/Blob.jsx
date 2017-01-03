@@ -1,5 +1,6 @@
 const React = require("react");
 const ReactDOM = require("react-dom");
+const Clipboard = require("clipboard");
 
 const ApiService = require('./../../services/jsonblob-api-service.js');
 
@@ -20,8 +21,13 @@ class Blob extends React.Component {
     ApiService.getBlob(blob.id)
       .then(jsonblob => {
         blob.jsonblob = jsonblob;
+        blob.method = "update";
         this.props.onBlobSelect(blob, view);
       });
+  }
+
+  copyBlobId(blob) {
+    new Clipboard(".button__copyBlobId");
   }
 
   render() {
@@ -36,17 +42,22 @@ class Blob extends React.Component {
         </p>
         <div className='pure-g'>
           <button 
-              className='pure-button button-secondary pure-u-1-3'
+              className='pure-button button-secondary pure-u-1-4'
               onClick={this.onBlobSelect.bind(this, this.props.blob, "view")}>
             View
           </button>
           <button 
-              className='pure-button pure-u-1-3'
+              className='pure-button pure-u-1-4'
               onClick={this.onBlobSelect.bind(this, this.props.blob, "code")}>
             Edit
           </button>
           <button 
-              className='pure-button button-error pure-u-1-3'
+              className='button__copyBlobId pure-button button-warning pure-u-1-4'
+              onClick={this.copyBlobId.bind(this, this.props.blob)}>
+            Copy ID 
+          </button>
+          <button 
+              className='pure-button button-error pure-u-1-4'
               onClick={this.props.onBlobRemove.bind(this, this.props.blob)}>
             Remove
           </button>
