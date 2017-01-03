@@ -9,8 +9,8 @@ class JsonEditor extends React.Component {
   constructor(props) {
     super(props);
 
-    this.viewMode = "";
-    this.selectedBlobId;
+    this.viewMode = "code";
+    this.selectedBlobId = "New";
   }
 
   componentDidMount() {
@@ -48,13 +48,13 @@ class JsonEditor extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.selectedBlob.id !== this.selectedBlobId) {
-      this.selectedBlobId = nextProps.selectedBlob.id;
-      this.jsonEditor.set(nextProps.selectedBlob.jsonblob);
-    }
     if(this.viewMode !== nextProps.viewMode) {
       this.viewMode = nextProps.viewMode;
       this.jsonEditor.setMode(nextProps.viewMode || "view");
+    }
+    if(nextProps.selectedBlob.id !== this.selectedBlobId) {
+      this.selectedBlobId = nextProps.selectedBlob.id;
+      this.jsonEditor.set(nextProps.selectedBlob.jsonblob);
     }
   }
 

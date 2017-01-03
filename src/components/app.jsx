@@ -20,8 +20,13 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      selectedBlob: {},
-      selectedBlobJson: {}
+      selectedBlob: {
+        id: "New",
+        jsonblob: {},
+        method: "create"
+      },
+      selectedBlobJson: {},
+      viewMode: "code"
     };
     this.data = {
       selectedBlobJson: {}
@@ -57,6 +62,17 @@ class App extends React.Component {
     });
   }
 
+  onBlobRemove() {
+    this.setState({
+      selectedBlob: {
+        id: "New",
+        jsonblob: {},
+        method: "create"
+      },
+      viewMode: "code"
+    });
+  }
+
   render() {
     return (
       <div>
@@ -79,8 +95,8 @@ class App extends React.Component {
           />
         </div>
         <BlobList 
-          selectedBlob={this.state.selectedBlob}
           onBlobSelect={this.onBlobSelect.bind(this)} 
+          onBlobRemove={this.onBlobRemove.bind(this)}
         />
       </div>
     ); 

@@ -14,38 +14,35 @@ class BlobList extends React.Component {
 
     this.state = {
       blobList: {},
-      selectedBlob: {} 
+      loadingBlobs: false
     };
   }
 
   componentDidMount() {
-    StorageService.getAllBlobs().then(this.updateBlobList.bind(this));
-  }
-
-  componentWillReceiveProps(nextProps) {
-    StorageService.getAllBlobs().then(this.updateBlobList.bind(this));
     this.setState({
-      selectedBlob: nextProps.selectedBlob,
+      loadingBlobs: true
     });
+    StorageService.getAllBlobs().then(this.updateBlobList.bind(this));
   }
 
   updateBlobList(blobs) {
     this.setState({
-      blobList: blobs
+      blobList: blobs,
+      loadingBlobs: false
     });
   }
 
   onBlobSelect(blob, viewMode) {
     this.props.onBlobSelect(blob, viewMode);
-    this.setState({
-      selectedBlob: blob
-    });
   }
 
   onBlobRemove(blob) {
     StorageService.removeBlob(blob.id)
       .then(StorageService.getAllBlobs)
-      .then(this.updateBlobList.bind(this));
+      .then(this.updateBlobList.bind(this))
+      .then(() => {
+        this.props.onBlobRemove();
+      });
     ApiService.removeBlob(blob.id);
   }
 
@@ -67,10 +64,15 @@ class BlobList extends React.Component {
           {blobList}
         </div>
       );
+    } else if(this.state.loadingBlobs) {
+      return (
+        <h1>Loading...</h1> 
+      );
+    } else {
+      return (
+        <h1>You have no blobs.</h1> 
+      );
     }
-    return (
-      <h1>Loading...</h1> 
-    );
   }
 }
 
