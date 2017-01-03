@@ -20,6 +20,7 @@ class Blob extends React.Component {
     ApiService.getBlob(blob.id)
       .then(jsonblob => {
         blob.jsonblob = jsonblob;
+        blob.method = "update";
         this.props.onBlobSelect(blob, view);
       });
   }

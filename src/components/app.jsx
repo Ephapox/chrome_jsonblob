@@ -9,7 +9,8 @@ const ReactDOM = require("react-dom");
 
 const JsonEditor = require('./JsonEditor/JsonEditor.jsx');
 const BlobList = require('./BlobList/BlobList.jsx');
-const AddBlob = require('./AddBlob/AddBlob.jsx');
+const NewBlob = require('./NewBlob/NewBlob.jsx');
+const SaveBlob = require('./SaveBlob/SaveBlob.jsx');
 
 const ApiService = require('./../services/jsonblob-api-service.js');
 const StorageService = require('./../services/jsonblob-storage-service.js');
@@ -19,10 +20,11 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      selectedBlob: {}
+      selectedBlob: {},
+      selectedBlobJson: {}
     };
     this.data = {
-      newBlob: {}
+      selectedBlobJson: {}
     };
   }
 
@@ -34,35 +36,24 @@ class App extends React.Component {
   }
 
   onJsonEditorChange(blob) {
-    this.data.newBlob = blob;
-  }
-
-  saveBlob() {
-    let newBlob = this.data.newBlob;
-    if(newBlob === "invalid") {
+    if(blob.error) {
     } else {
-      ApiService.createBlob(newBlob)
-        .then(res => {
-          let id = res.headers.get('x-jsonblob');
-          let date = new Date().toLocaleString()
-          return {id: id, name: date, jsonblob: newBlob};
-        })
-        .then(StorageService.saveBlob)
-        .then(blob => {
-          this.setState({
-            selectedBlob: blob
-          });
-        });
+      this.setState({
+        selectedBlobJson: blob.json
+      });
     }
   }
 
-  newBlob() {
+  onNewBlob(selectedBlob) {
     this.setState({
-      selectedBlob: {
-        id: "New",
-        jsonblob: {}
-      },
+      selectedBlob: selectedBlob,
       viewMode: "code"
+    });
+  }
+
+  onBlobSave(savedBlob) {
+    this.setState({
+      selectedBlob: savedBlob
     });
   }
 
@@ -78,16 +69,14 @@ class App extends React.Component {
           Selected <span className='selectedBlobId'>{this.state.selectedBlob.id}</span>
         </p>
         <div className='pure-g'>
-          <button 
-              className='pure-button button-success pure-u-1-3'
-              onClick={this.newBlob.bind(this)}>
-            New Blob
-          </button>
-          <button 
-              className='pure-button button-secondary pure-u-1-3'
-              onClick={this.saveBlob.bind(this)}>
-            Save Blob
-          </button>
+          <NewBlob 
+              onNewBlob={this.onNewBlob.bind(this)} 
+          />
+          <SaveBlob 
+              selectedBlob={this.state.selectedBlob} 
+              selectedBlobJson={this.state.selectedBlobJson}
+              onBlobSave={this.onBlobSave.bind(this)}
+          />
         </div>
         <BlobList 
           selectedBlob={this.state.selectedBlob}
