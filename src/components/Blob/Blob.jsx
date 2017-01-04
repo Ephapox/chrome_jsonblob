@@ -2,6 +2,7 @@ const React = require("react");
 const Clipboard = require("clipboard");
 
 const ApiService = require('./../../services/jsonblob-api-service.js');
+const iframeService = require('./../../services/iframe-msg-service.js');
 
 class Blob extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class Blob extends React.Component {
   }
 
   formatBlobUrl(id) {
-    return `https://jsonblob.com/${id}`;
+    return `https://jsonblob.com/api/${id}`;
   }
 
   onBlobSelect(blob, view) {
@@ -28,13 +29,21 @@ class Blob extends React.Component {
       });
   }
 
+  openBlobLink(id) {
+    iframeService.messageContentScript({
+      type: "jsonblob",
+      url: this.formatBlobUrl(id)
+    });
+  }
+
   render() {
     return(
       <div className="jsonblob__blob">
         <p>{this.props.blob.name}</p> 
         <p>
           <a
-              href={this.formatBlobUrl(this.props.blob.id)}>
+              href="#"
+              onClick={this.openBlobLink.bind(this, this.props.blob.id)}>
             {this.props.blob.id}
           </a> 
         </p>
