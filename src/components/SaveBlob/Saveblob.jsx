@@ -1,5 +1,4 @@
 const React = require('react');
-const ReactDOM = require('react-dom');
 
 const ApiService = require('./../../services/jsonblob-api-service.js');
 const StorageService = require('./../../services/jsonblob-storage-service.js');

@@ -1,5 +1,4 @@
 const React = require("react");
-const ReactDOM = require("react-dom");
 const _map = require('lodash/map');
 const _values = require('lodash/values');
 

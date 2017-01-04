@@ -1,5 +1,4 @@
 const React = require("react");
-const ReactDOM = require("react-dom");
 const JSONEditor = require('jsoneditor');
 
 let jsoneditorCSS = require('style-loader!css-loader!./jsoneditor.css');

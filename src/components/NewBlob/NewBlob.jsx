@@ -1,5 +1,4 @@
 const React = require('react');
-const ReactDOM = require('react-dom');
 
 class NewBlob extends React.Component {
   constructor(props) {

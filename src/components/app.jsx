@@ -28,9 +28,6 @@ class App extends React.Component {
       selectedBlobJson: {},
       viewMode: "code"
     };
-    this.data = {
-      selectedBlobJson: {}
-    };
   }
 
   onBlobSelect(blob, viewMode) {

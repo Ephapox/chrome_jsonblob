@@ -1,5 +1,4 @@
 const React = require("react");
-const ReactDOM = require("react-dom");
 const Clipboard = require("clipboard");
 
 const ApiService = require('./../../services/jsonblob-api-service.js');
@@ -7,6 +6,8 @@ const ApiService = require('./../../services/jsonblob-api-service.js');
 class Blob extends React.Component {
   constructor(props) {
     super(props);
+
+    this.blobURL = `https://jsonblob.com/api/${this.props.blob.id}`;
   }
   
   componentDidMount(nextProps, nextState) {
@@ -50,8 +51,8 @@ class Blob extends React.Component {
           </button>
           <button 
               className='button__copyBlobId pure-button button-warning pure-u-1-4'
-              data-clipboard-text={this.props.blob.id}>
-            Copy ID 
+              data-clipboard-text={this.blobURL}>
+            Copy URL
           </button>
           <button 
               className='pure-button button-error pure-u-1-4'
