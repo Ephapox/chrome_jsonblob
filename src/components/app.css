@@ -1,3 +1,15 @@
 .selectedBlobId {
   color: rgb(28, 184, 65);
 }
+
+.selectedBlobContainer {
+  margin: 10px 0;
+}
+
+.selectedBlobName {
+  margin: 10px 0;
+}
+
+.selectedBlobInput {
+  width: 50%;
+}

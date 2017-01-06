@@ -22,10 +22,11 @@ class App extends React.Component {
     this.state = {
       selectedBlob: {
         id: "New",
+        name: "New Blob",
         jsonblob: {},
         method: "create"
       },
-      selectedBlobJson: {},
+      blobInputVal: "",
       viewMode: "code"
     };
   }
@@ -33,6 +34,7 @@ class App extends React.Component {
   onBlobSelect(blob, viewMode) {
     this.setState({
       selectedBlob: blob,
+      blobInputVal: blob.name,
       viewMode: viewMode
     });
   }
@@ -40,8 +42,10 @@ class App extends React.Component {
   onJsonEditorChange(blob) {
     if(blob.error) {
     } else {
+      const selectedBlob = this.state.selectedBlob;
+      selectedBlob.jsonblob = blob.json;
       this.setState({
-        selectedBlobJson: blob.json
+        selectedBlob: selectedBlob 
       });
     }
   }
@@ -64,9 +68,20 @@ class App extends React.Component {
       selectedBlob: {
         id: "New",
         jsonblob: {},
-        method: "create"
+        method: "create",
+        name: "New Blob"
       },
-      viewMode: "code"
+      viewMode: "code",
+      blobInputVal: "New Blob"
+    });
+  }
+
+  handleChange(event) {
+    const selectedBlob = this.state.selectedBlob;
+    selectedBlob.name = event.target.value;
+    this.setState({
+      blobInputVal: event.target.value,
+      selectedBlob: selectedBlob
     });
   }
 
@@ -78,19 +93,26 @@ class App extends React.Component {
           selectedBlob={this.state.selectedBlob} 
           onJsonEditorChange={this.onJsonEditorChange.bind(this)}
         />
-        <p>
-          Selected <span className='selectedBlobId'>{this.state.selectedBlob.id}</span>
-        </p>
-        <div className='pure-g'>
-          <NewBlob 
-              onNewBlob={this.onNewBlob.bind(this)} 
-          />
+        <div className='selectedBlobContainer'>
+          <p>Selected <span className='selectedBlobId'>{this.state.selectedBlob.id}</span></p>
+          <div className='selectedBlobName'>
+            <input 
+                className='selectedBlobInput' 
+                type="text" 
+                name='selectedBlobName' 
+                value={this.state.blobInputVal} 
+                onChange={this.handleChange.bind(this)}
+            />
+          </div>
+          
           <SaveBlob 
               selectedBlob={this.state.selectedBlob} 
-              selectedBlobJson={this.state.selectedBlobJson}
               onBlobSave={this.onBlobSave.bind(this)}
           />
         </div>
+        <NewBlob 
+            onBlobSelect={this.onBlobSelect.bind(this)} 
+        />
         <BlobList 
           onBlobSelect={this.onBlobSelect.bind(this)} 
           onBlobRemove={this.onBlobRemove.bind(this)}

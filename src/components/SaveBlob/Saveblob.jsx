@@ -12,7 +12,6 @@ class SaveBlob extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.selectedBlob = nextProps.selectedBlob;
-    this.selectedBlob.jsonblob = nextProps.selectedBlobJson;
   }
 
   saveBlob(selectedBlob) {
@@ -24,7 +23,7 @@ class SaveBlob extends React.Component {
           let date = new Date().toLocaleString();
           return {
             id: id, 
-            name: date, 
+            name: selectedBlob.name || date, 
             jsonblob: selectedBlob.jsonblob
           };
         })
@@ -38,7 +37,7 @@ class SaveBlob extends React.Component {
   render() {
     return (
       <button 
-          className='pure-button button-primary pure-u-1-3'
+          className='pure-button pure-u-1-5'
           onClick={this.saveBlob.bind(this, this.selectedBlob)}>
         Save Blob
       </button>
